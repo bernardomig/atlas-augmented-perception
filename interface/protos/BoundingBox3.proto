@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package atlas.augmented;
+
+import "Size3.proto";
+import "Position3.proto";
+
+message BoundingBox3 {
+    Position3 position = 1;
+    Size3     size     = 2;
+}

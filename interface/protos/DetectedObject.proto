@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package atlas.augmented;
+
+import "BoundingBox3.proto";
+
+message DetectedObject {
+    uint64 id = 1;
+    string label = 2;
+    BoundingBox3 bbox = 3;
+}

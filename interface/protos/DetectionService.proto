@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package atlas.augmented;
+
+import "DetectedObject.proto";
+
+service DetectionService {
+    rpc GetDetectedObjects (DetectionServiceRequest) returns (stream DetectionServiceResponse) {} 
+}
+
+message DetectionServiceRequest {
+}
+
+message DetectionServiceResponse {
+    repeated DetectedObject objects = 1;
+}
