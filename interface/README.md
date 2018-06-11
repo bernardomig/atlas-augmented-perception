@@ -93,3 +93,13 @@ message DetectionServiceResponse {
     repeated DetectedObject objects = 1;
 }
 ```
+
+## Build
+
+To build the message python and csharp code, use the Makefile in the generated subdirectory. For example, to build the python code, execute the makefile command
+
+    make gen-python
+
+### Dependencies:
+
+To install the dependencies, run the command `make get-deps`. For csharp you need nuget to be installed.
