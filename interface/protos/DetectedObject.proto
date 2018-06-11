@@ -5,7 +5,10 @@ package atlas.augmented;
 import "BoundingBox3.proto";
 
 message DetectedObject {
+    // The unique id of the detected object
     uint64 id = 1;
+    // The classification label
     string label = 2;
+    // The tridimensional bounding box related to the object
     BoundingBox3 bbox = 3;
 }
