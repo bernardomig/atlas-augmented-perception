@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package atlas.augmented;
+
+import "transformation.proto";
+import "size.proto";
+
+message BoundingBox {
+
+    Transformation transform = 1;
+    
+    Size size = 2;
+
+}

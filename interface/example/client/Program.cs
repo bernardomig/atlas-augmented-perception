@@ -28,7 +28,7 @@ namespace Client
 
         static void Main(string[] args)
         {
-            Channel channel = new Channel("[::1]:5000", ChannelCredentials.Insecure);
+            Channel channel = new Channel("127.0.0.1:5000", ChannelCredentials.Insecure);
 
             var client = new DetectionService.DetectionServiceClient(channel);
 

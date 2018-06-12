@@ -2,13 +2,16 @@ syntax = "proto3";
 
 package atlas.augmented;
 
-import "BoundingBox3.proto";
+import "header.proto";
+import "boundingbox.proto";
 
 message DetectedObject {
+    // The header of the Object
+    Header header = 1;
     // The unique id of the detected object
-    uint64 id = 1;
+    uint64 id = 2;
     // The classification label
-    string label = 2;
+    string label = 3;
     // The tridimensional bounding box related to the object
-    BoundingBox3 bbox = 3;
+    BoundingBox bbox = 4;
 }

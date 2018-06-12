@@ -2,25 +2,34 @@ import grpc
 from concurrent import futures
 import time
 from random import random
+from google.protobuf.timestamp_pb2 import Timestamp
 
-from messages.DetectionService_pb2_grpc import DetectionServiceServicer, add_DetectionServiceServicer_to_server
-from messages.DetectionService_pb2 import DetectionServiceRequest, DetectionServiceResponse
-from messages.DetectedObject_pb2 import DetectedObject
-from messages.BoundingBox3_pb2 import BoundingBox3
-from messages.Position3_pb2 import Position3
-from messages.Size3_pb2 import Size3
+from messages.detectionservice_pb2_grpc import DetectionServiceServicer, add_DetectionServiceServicer_to_server
+from messages.detectionservice_pb2 import DetectionServiceRequest, DetectionServiceResponse
+from messages.detectedobject_pb2 import DetectedObject
+from messages.header_pb2 import Header
+from messages.boundingbox_pb2 import BoundingBox
+from messages.vector_pb2 import Vector
+from messages.quaternion_pb2 import Quaternion
+from messages.transformation_pb2 import Transformation
+from messages.size_pb2 import Size
 
 class DetectionService(DetectionServiceServicer):
 
     def GetDetectedObjects(self, request, context):
         for i in range(100):
+            timestamp = Timestamp()
+            timestamp.GetCurrentTime()
             yield DetectionServiceResponse(objects=[
                 DetectedObject(
                     id=1,
                     label="person",
-                    bbox=BoundingBox3(
-                        position=Position3(x=random(), y=random(), z=random()),
-                        size=Size3(width=random(), heigth=random(), depth=random()),
+                    header=Header(frame_id="some_frame", stamp=timestamp),
+                    bbox=BoundingBox(
+                        transform=Transformation(
+                            origin=Vector(x=random(), y=random(), z=random()),
+                            orientation=Quaternion(x=random(), y=random(), z=random(), w=random())),
+                        size=Size(width=random(), heigth=random(), depth=random()),
                     )
                 )
             ])
@@ -29,7 +38,7 @@ class DetectionService(DetectionServiceServicer):
 if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
     add_DetectionServiceServicer_to_server(DetectionService(), server)
-    server.add_insecure_port('[::]:5000')
+    server.add_insecure_port('127.0.0.1:5000')
     server.start()
 
     try:

@@ -5,11 +5,11 @@ all:
 
 gen-csharp:
 	mkdir -p csharp
-	packages/Grpc.Tools.1.12.0/tools/linux_x64/protoc \
+	protoc \
 		-I=../protos \
 		--csharp_out=csharp \
 		--grpc_out=csharp \
-		--plugin=protoc-gen-grpc=packages/Grpc.Tools.1.12.0/tools/linux_x64/grpc_csharp_plugin \
+		--plugin=protoc-gen-grpc=$(shell which grpc_csharp_plugin) \
 		../protos/*.proto
 
 gen-python:

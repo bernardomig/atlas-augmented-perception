@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package atlas.augmented;
+
+import "vector.proto";
+import "quaternion.proto";
+
+message Transformation {
+
+    Vector origin = 1;
+    
+    Quaternion orientation = 2;
+
+}

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package atlas.augmented;
 
-import "DetectedObject.proto";
+import "detectedobject.proto";
 
 service DetectionService {
     rpc GetDetectedObjects (DetectionServiceRequest) returns (stream DetectionServiceResponse) {} 
