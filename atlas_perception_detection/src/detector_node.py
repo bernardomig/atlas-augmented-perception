@@ -9,6 +9,7 @@ from cv_bridge import CvBridge
 import numpy as np
 
 def _to_detected_object_msg(id, detected_object):
+    """Converts the output of the detector node to a DetectedObjects2 message."""
     bbox = detected_object['bbox']
     return DetectedObject2(
         id=id,
@@ -20,6 +21,11 @@ def _to_detected_object_msg(id, detected_object):
     )
 
 class DetectorNode:
+    """The DetectorNode listens to messages incomming in the image topic, and
+    outputs the predictions to detected_object topic.
+    The message, when received, is converted to a numpy array and then passed 
+    to the detector class.
+    """
 
     def __init__(self, detector, image_topic, detected_object_topic):
         self._image_sub = rospy.Subscriber(
@@ -51,7 +57,11 @@ class DetectorNode:
 
         self._detected_objects_pub.publish(detected_objects_msg)
 
-
+#
+# This is runs a test node using the TestDetector as the detector and uses the topics:
+# - 'image' as the image topic
+# - 'detected_objects_2d' as the detected objects topic
+#
 if __name__ == '__main__':
 
     from detector import TestDetector
@@ -60,7 +70,7 @@ if __name__ == '__main__':
 
     rospy.init_node("detector_node_debug")
 
-    node = DetectorNode(detector, 'image', 'detected_object_2d')
+    node = DetectorNode(detector, 'image', 'detected_objects_2d')
 
     rospy.spin()
     
