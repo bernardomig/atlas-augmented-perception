@@ -1,4 +1,6 @@
 
+from detector import BaseDetector
+
 class TestDetector(BaseDetector):
     """A stub detector that always outputs the same prediction.
     Should be used as a way to test the system.

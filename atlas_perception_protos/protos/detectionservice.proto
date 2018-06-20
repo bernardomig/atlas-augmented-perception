@@ -5,7 +5,7 @@ package atlas.augmented;
 import "detectedobject.proto";
 
 service DetectionService {
-    rpc GetDetectedObjects (DetectionServiceRequest) returns (stream DetectionServiceResponse) {} 
+    rpc GetDetectedObjects (DetectionServiceRequest) returns (stream DetectionServiceResponse) {}
 }
 
 message DetectionServiceRequest {

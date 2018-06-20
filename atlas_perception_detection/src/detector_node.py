@@ -64,7 +64,7 @@ class DetectorNode:
 #
 if __name__ == '__main__':
 
-    from detector import TestDetector
+    from detector_test import TestDetector
 
     detector = TestDetector()
 

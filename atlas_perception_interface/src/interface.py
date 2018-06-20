@@ -39,7 +39,7 @@ class DetectionService(DetectionServiceServicer):
         timestamp.nanos = objects.header.stamp.nsecs
         frame_id = objects.header.frame_id
         header = Header(
-            timestmap = timestamp,
+            stamp = timestamp,
             frame_id = frame_id,
         )
         
@@ -50,6 +50,9 @@ class DetectionService(DetectionServiceServicer):
 
         self._objects_deque.append(new_objects)
 
+        print("received new objects!")
+        print("queue size {}".format(len(self._objects_deque)))
+
     @staticmethod
     def objects_msg_to_proto(header, object):
         return DetectedObject(
@@ -59,18 +62,18 @@ class DetectionService(DetectionServiceServicer):
             bbox=BoundingBox(
                 transform=Transformation(
                     origin=Vector(
-                        x=object.bbox.transform.origin.x,
-                        y=object.bbox.transform.origin.y,
-                        z=object.bbox.transform.origin.y),
+                        x=object.bbox.transform.translation.x,
+                        y=object.bbox.transform.translation.y,
+                        z=object.bbox.transform.translation.y),
                     orientation=Quaternion(
-                        x=object.bbox.transform.orientation.x,
-                        y=object.bbox.transform.orientation.y,
-                        z=object.bbox.transform.orientation.z,
-                        w=object.bbox.transform.orientation.w),
+                        x=object.bbox.transform.rotation.x,
+                        y=object.bbox.transform.rotation.y,
+                        z=object.bbox.transform.rotation.z,
+                        w=object.bbox.transform.rotation.w),
                     ),
                 size=Size(
                     width=object.bbox.size.x,
-                    height=object.bbox.size.w,
+                    heigth=object.bbox.size.y,
                     depth=object.bbox.size.z,
                 )
             ),
@@ -81,18 +84,17 @@ class DetectionService(DetectionServiceServicer):
         while True:
             try:
                 obj = self._objects_deque.pop()
-                yield obj
+                print("sending object")
+                yield DetectionServiceResponse(objects=obj)
             except IndexError:
                 pass
 
 if __name__ == '__main__':
+    rospy.init_node('atlas_perception_interface')
+
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
-    add_DetectionServiceServicer_to_server(DetectionService('objects_3d'), server)
+    add_DetectionServiceServicer_to_server(DetectionService('detected_objects_3d'), server)
     server.add_insecure_port('127.0.0.1:5000')
     server.start()
 
-    try:
-        while True:
-            time.sleep(10)
-    except KeyboardInterrupt:
-        server.stop(0)
+    rospy.spin()

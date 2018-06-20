@@ -42,7 +42,7 @@ class Transformer:
             label=object.label,
             bbox=BoundingBox3(
                 transform=Transform(
-                    origin=Vector3(x=x / 400 - 500, y=y / 400 - 500, z=1),
+                    translation=Vector3(x=x / 400 - 500, y=y / 400 - 500, z=1),
                     rotation=Quaternion(x=1, y=0, z=0, w=0),
                 ),
                 size=Vector3(
@@ -57,6 +57,6 @@ class Transformer:
 if __name__ == '__main__':
     rospy.init_node('atlas_perception_transformer_node')
 
-    t = Transformer('objects2d', 'objects3d')
+    t = Transformer('detected_objects_2d', 'detected_objects_3d')
 
     rospy.spin()
