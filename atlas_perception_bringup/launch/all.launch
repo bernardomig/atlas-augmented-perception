@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- load all the drivers -->
+
+    <!-- load the camera driver -->
+    <include file="$(find atlas_perception_bringup)/launch/camera.launch">
+        <arg name="camera_name" value="frontal_camera"/>
+    </include>
+
+    <!-- load the frontal lasers drivers -->
+    <!-- left frontal laser -->
+    <include file="$(find atlas_perception_bringup)/launch/frontal_laser.launch">
+        <arg name="port" value="192.168.0.134"/>
+        <arg name="frame_id" value="frontal_laser_left" />
+    </include>
+    <!-- right frontal laser -->
+    <include file="$(find atlas_perception_bringup)/launch/frontal_laser.launch">
+        <arg name="port" value="192.168.0.231"/>
+        <arg name="frame_id" value="frontal_laser_right" />
+    </include>
+
+</launch>

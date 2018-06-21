@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find atlas_perception_description)/urdf/car_macro.urdf.xacro" />
+
+
+    <xacro:macro name="atlas" params="prefix">
+        <link name="${prefix}base_link" />
+
+        <xacro:car prefix="${prefix}car_" />
+
+        <joint name="${prefix}base_link_to_${prefix}car" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}car_base_link" />
+        </joint>
+
+    </xacro:macro>
+
+</robot>

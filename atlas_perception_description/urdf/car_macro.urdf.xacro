@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="car" params="prefix">
+
+        <link name="${prefix}base_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://atlas_perception_description/meshes/mitsubishi_miev.stl" />
+                </geometry>
+            </visual>
+
+        </link>
+
+    </xacro:macro>
+
+</robot>

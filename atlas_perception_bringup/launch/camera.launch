@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="camera_name" />
+
+    <include file="$(find pointgrey_camera_driver)/launch/camera.launch">
+        <arg name="camera_name" value="$(arg camera_name)"/>
+    </include>
+</launch>
