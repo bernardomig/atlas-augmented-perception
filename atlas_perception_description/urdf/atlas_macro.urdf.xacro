@@ -3,7 +3,8 @@
     xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:include filename="$(find atlas_perception_description)/urdf/car_macro.urdf.xacro" />
-
+    <xacro:include filename="$(find pointgrey_camera_description)/urdf/pointgrey_flea3.urdf.xacro" />
+    <xacro:include filename="$(find lms1xx)/urdf/sick_lms1xx.urdf.xacro" />
 
     <xacro:macro name="atlas" params="prefix">
         <link name="${prefix}base_link" />
@@ -14,6 +15,30 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <parent link="${prefix}base_link" />
             <child link="${prefix}car_base_link" />
+        </joint>
+
+        <xacro:pointgrey_flea3 frame="${prefix}frontal_camera" />
+
+        <joint name="${prefix}base_link_to_${prefix}frontal_camera" type="fixed">
+            <origin xyz="0 -0.1 0.2" rpy="0 0 ${-pi/2}" />
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}frontal_camera" />
+        </joint>
+
+        <xacro:sick_lms1xx frame="${prefix}frontal_laser_left" />
+
+        <joint name="${prefix}base_link_to_${prefix}frontal_laser_left" type="fixed">
+            <origin xyz="0.6 0 0" rpy="0 0 ${-pi/3}" />
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}frontal_laser_left" />
+        </joint>
+
+        <xacro:sick_lms1xx frame="${prefix}frontal_laser_right" />
+
+        <joint name="${prefix}base_link_to_${prefix}frontal_laser_right" type="fixed">
+            <origin xyz="-0.6 0 0" rpy="0 0 ${-2*pi/3}" />
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}frontal_laser_right" />
         </joint>
 
     </xacro:macro>
