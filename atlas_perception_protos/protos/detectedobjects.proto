@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package atlas.augmented;
+
+import "header.proto";
+import "detectedobject.proto";
+
+message DetectedObjects {
+    Header header = 1; 
+    repeated DetectedObject detectedObjects = 2;
+}

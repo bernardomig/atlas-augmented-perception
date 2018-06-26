@@ -1,42 +1,39 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
 
-using Grpc.Core;
 using Atlas.Augmented;
 
 namespace Client
 {
-    class Program
+    static class Program
     {
-        static async Task GetDetectedObjects(DetectionService.DetectionServiceClient client) {
-
-            try {
-                var call = client.GetDetectedObjects(new DetectionServiceRequest());
-
-                var responseStream = call.ResponseStream;
-
-                while(await responseStream.MoveNext(CancellationToken.None)) {
-                    Console.WriteLine("Received message");
-                    Console.WriteLine(responseStream.Current);
-                }
-            }
-            catch (RpcException) {
-                throw;
-            }
-        }
-
-        static void Main(string[] args)
+        static HttpClient client = new HttpClient();
+        static public async Task Main(string[] args)
         {
-            Channel channel = new Channel("127.0.0.1:5000", ChannelCredentials.Insecure);
+            client.BaseAddress = new Uri("http://192.168.0.107:5001");
 
-            var client = new DetectionService.DetectionServiceClient(channel);
+            var detectedObject = GetObject();
 
-            GetDetectedObjects(client).Wait();
-
-            channel.ShutdownAsync().Wait();
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+            Console.WriteLine(await detectedObject);
         }
+
+        static async Task<DetectedObjects> GetObject()
+        {
+            var resp = await client.GetAsync("/");
+
+            if(resp.IsSuccessStatusCode) {
+                var body = resp.Content.ReadAsByteArrayAsync();
+                var detectedObject = DetectedObjects.Parser.ParseFrom(await body);
+                return detectedObject;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

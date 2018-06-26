@@ -13,7 +13,6 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-import header_pb2 as header__pb2
 import boundingbox_pb2 as boundingbox__pb2
 
 
@@ -21,9 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='detectedobject.proto',
   package='atlas.augmented',
   syntax='proto3',
-  serialized_pb=_b('\n\x14\x64\x65tectedobject.proto\x12\x0f\x61tlas.augmented\x1a\x0cheader.proto\x1a\x11\x62oundingbox.proto\"\x80\x01\n\x0e\x44\x65tectedObject\x12\'\n\x06header\x18\x01 \x01(\x0b\x32\x17.atlas.augmented.Header\x12\n\n\x02id\x18\x02 \x01(\x04\x12\r\n\x05label\x18\x03 \x01(\t\x12*\n\x04\x62\x62ox\x18\x04 \x01(\x0b\x32\x1c.atlas.augmented.BoundingBoxb\x06proto3')
+  serialized_pb=_b('\n\x14\x64\x65tectedobject.proto\x12\x0f\x61tlas.augmented\x1a\x11\x62oundingbox.proto\"^\n\x0e\x44\x65tectedObject\x12\n\n\x02id\x18\x01 \x01(\x04\x12\r\n\x05label\x18\x02 \x01(\t\x12\x31\n\x0b\x62oundingBox\x18\x03 \x01(\x0b\x32\x1c.atlas.augmented.BoundingBoxb\x06proto3')
   ,
-  dependencies=[header__pb2.DESCRIPTOR,boundingbox__pb2.DESCRIPTOR,])
+  dependencies=[boundingbox__pb2.DESCRIPTOR,])
 
 
 
@@ -36,29 +35,22 @@ _DETECTEDOBJECT = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='header', full_name='atlas.augmented.DetectedObject.header', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='id', full_name='atlas.augmented.DetectedObject.id', index=1,
-      number=2, type=4, cpp_type=4, label=1,
+      name='id', full_name='atlas.augmented.DetectedObject.id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='label', full_name='atlas.augmented.DetectedObject.label', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='label', full_name='atlas.augmented.DetectedObject.label', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='bbox', full_name='atlas.augmented.DetectedObject.bbox', index=3,
-      number=4, type=11, cpp_type=10, label=1,
+      name='boundingBox', full_name='atlas.augmented.DetectedObject.boundingBox', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -75,12 +67,11 @@ _DETECTEDOBJECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=75,
-  serialized_end=203,
+  serialized_start=60,
+  serialized_end=154,
 )
 
-_DETECTEDOBJECT.fields_by_name['header'].message_type = header__pb2._HEADER
-_DETECTEDOBJECT.fields_by_name['bbox'].message_type = boundingbox__pb2._BOUNDINGBOX
+_DETECTEDOBJECT.fields_by_name['boundingBox'].message_type = boundingbox__pb2._BOUNDINGBOX
 DESCRIPTOR.message_types_by_name['DetectedObject'] = _DETECTEDOBJECT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
