@@ -15,9 +15,11 @@ namespace Client
         {
             client.BaseAddress = new Uri("http://192.168.0.107:5001");
 
-            var detectedObject = GetObject();
+            var detectedObjects = await GetObject();
 
-            Console.WriteLine(await detectedObject);
+            var obj1 = detectedObjects.DetectedObjects_[0];
+
+            Console.WriteLine(obj1.BoundingBox.Size);
         }
 
         static async Task<DetectedObjects> GetObject()

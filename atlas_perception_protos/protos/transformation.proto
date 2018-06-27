@@ -7,8 +7,8 @@ import "quaternion.proto";
 
 message Transformation {
 
-    Vector origin = 1;
+    Vector translation = 1;
     
-    Quaternion orientation = 2;
+    Quaternion rotation = 2;
 
 }
