@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     rospy.init_node("detector_node_debug")
 
-    node = DetectorNode(detector, '/image_publisher_1530109352179628357/image_raw', 'detected_objects_2d')
+    node = DetectorNode(detector, '/camera/image_raw', 'detected_objects_2d')
 
     rospy.spin()
     
