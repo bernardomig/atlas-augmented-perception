@@ -64,13 +64,13 @@ class DetectorNode:
 #
 if __name__ == '__main__':
 
-    from detector_test import TestDetector
+    from detector_ball import BallDetector
 
-    detector = TestDetector()
+    detector = BallDetector()
 
     rospy.init_node("detector_node_debug")
 
-    node = DetectorNode(detector, 'image', 'detected_objects_2d')
+    node = DetectorNode(detector, '/image_publisher_1530109352179628357/image_raw', 'detected_objects_2d')
 
     rospy.spin()
     
