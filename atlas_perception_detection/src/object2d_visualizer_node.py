@@ -8,7 +8,7 @@ from cv_bridge import CvBridge
 import cv2 as cv
 
 
-class ObjectVisualizerNode:
+class Object2DVisualizerNode:
 
     def __init__(self, image_topic, objects_topic, debug_topic):
         self._image_sub = rospy.Subscriber(
@@ -47,7 +47,7 @@ class ObjectVisualizerNode:
 if __name__ == '__main__':
     rospy.init_node('object_visualizer_node')
 
-    obv = ObjectVisualizerNode(
+    obv = Object2DVisualizerNode(
         'camera/image_raw', 'detected_objects_2d', 'image_with_objects')
 
     rospy.spin()
