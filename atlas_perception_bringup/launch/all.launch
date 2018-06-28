@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+
+    <include file="$(find atlas_perception_bringup)/launch/drivers.launch" />
+
+    <include file="$(find atlas_perception_description)/launch/demo.launch" />
+
+    <!-- <include file="$(find atlas_perception_detection)/launch/detectors.launch" />
+    <include file="$(find atlas_perception_detection)/launch/visualizers.launch" /> -->
+
+    <include file="$(find atlas_perception_calibration)/launch/fiducial_detect.launch" />
+
+    <node pkg="atlas_perception_calibration" type="fiducial_detector_node.py" name="fiducial_detector_node">
+    </node>
+    <node pkg="atlas_perception_detection" type="object3d_visualizer_node.py" name="object3d_visualizer_node">
+        <remap from="detected_objects_3d" to="/detected_objects_3d" />
+    </node>
+
+    <node pkg="atlas_perception_interface" type="interface_http.py" name="interface_http">
+    </node>
+
+</launch>

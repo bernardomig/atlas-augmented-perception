@@ -63,7 +63,7 @@ class DetectionService:
                     translation=Vector(
                         x=object.bbox.transform.translation.x,
                         y=-object.bbox.transform.translation.y,
-                        z=object.bbox.transform.translation.y),
+                        z=object.bbox.transform.translation.z),
                     rotation=Quaternion(
                         x=object.bbox.transform.rotation.x,
                         y=object.bbox.transform.rotation.y,
@@ -99,5 +99,5 @@ if __name__ == '__main__':
 
     signal.signal(signal.SIGINT, lambda: sys.exit(0))
 
-    app.run(debug=False)
+    app.run(host='0.0.0.0', debug=False)
 

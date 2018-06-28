@@ -46,7 +46,7 @@ class TransformerNode:
         w = object.bbox.size.x
         h = object.bbox.size.y
 
-        z = w / self._camera_model.fx() / 0.25
+        z = w / self._camera_model.fx() / 0.2
 
         (x0, y0, _) = self._camera_model.projectPixelTo3dRay( (x, y) )
         (x1, y1, _) = self._camera_model.projectPixelTo3dRay( (x + w, x + h) )
@@ -61,9 +61,9 @@ class TransformerNode:
                     rotation=Quaternion(x=0, y=0, z=0, w=1),
                 ),
                 size=Vector3(
-                    x=0.9,
-                    y=0.9,
-                    z=0.9
+                    x=0.5,
+                    y=0.5,
+                    z=0.5
                 )
             )
         )
