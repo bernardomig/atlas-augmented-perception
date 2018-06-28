@@ -18,8 +18,8 @@ class TransformerNode:
     """
 
     def __init__(self, objects2_topic, objects3_topic):
-        camera_info = rospy.wait_for_message('/camera/camera_info', CameraInfo)
-        
+        camera_info = rospy.wait_for_message('camera_info', CameraInfo)
+
         self._camera_model = PinholeCameraModel()
         self._camera_model.fromCameraInfo(camera_info)
 
@@ -28,7 +28,7 @@ class TransformerNode:
 
         self._objects_pub = rospy.Publisher(
             objects3_topic, DetectedObjects3, queue_size=10)
-    
+
 
     def objects_callback(self, objects):
         objects_in_3d = map(self.transform_object, objects.objects)
@@ -46,10 +46,10 @@ class TransformerNode:
         w = object.bbox.size.x
         h = object.bbox.size.y
 
-        z = w / 500 / 0.9
+        z = w / self._camera_model.fx() / 0.25
 
-        (x, y, _) = self._camera_model.projectPixelTo3dRay( (x, y) )
-        (w, h, _) = self._camera_model.projectPixelTo3dRay( (w, h) )
+        (x0, y0, _) = self._camera_model.projectPixelTo3dRay( (x, y) )
+        (x1, y1, _) = self._camera_model.projectPixelTo3dRay( (x + w, x + h) )
 
 
         return DetectedObject3(
@@ -57,7 +57,7 @@ class TransformerNode:
             label=object.label,
             bbox=BoundingBox3(
                 transform=Transform(
-                    translation=Vector3(x=x * z, y=y * z, z=z),
+                    translation=Vector3(x=0.5 * (x1+x0) / 0.4, y= 0.5 * (y1+y0) / 1.1, z=z),
                     rotation=Quaternion(x=0, y=0, z=0, w=1),
                 ),
                 size=Vector3(

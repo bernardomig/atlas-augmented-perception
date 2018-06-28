@@ -13,7 +13,7 @@ class Object2DVisualizerNode:
     def __init__(self, image_topic, objects_topic, debug_topic):
         self._image_sub = rospy.Subscriber(
             image_topic, Image, callback=self._image_callback, queue_size=10)
-        
+
         self._objects_sub = rospy.Subscriber(
             objects_topic, DetectedObjects2, callback=self._objects_callback, queue_size=10)
 
@@ -30,7 +30,7 @@ class Object2DVisualizerNode:
 
     def _objects_callback(self, objects):
         if self._last_image is None: return
-        
+
         img = self._last_image
 
         for obj in objects.objects:
@@ -48,6 +48,6 @@ if __name__ == '__main__':
     rospy.init_node('object_visualizer_node')
 
     obv = Object2DVisualizerNode(
-        'camera/image_raw', 'detected_objects_2d', 'image_with_objects')
+        'image', 'detected_objects', 'image_with_objects')
 
     rospy.spin()

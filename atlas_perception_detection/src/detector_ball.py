@@ -24,21 +24,21 @@ class BallDetector(BaseDetector):
         img = cv.GaussianBlur(image, (11, 11), 0.5)
         hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 
-        lower_red = np.array([0, 100, 100])
-        upper_red = np.array([50, 255, 255])
+        lower_red = np.array([0, 150, 120])
+        upper_red = np.array([20, 255, 255])
 
         mask = cv.inRange(hsv, lower_red, upper_red)
 
-        mask = cv.erode(mask, None, iterations=2)
-        mask = cv.dilate(mask, None, iterations=2)
+        # mask = cv.erode(mask, None, iterations=2)
+        # mask = cv.dilate(mask, None, iterations=2)
 
-        _, contours, _ = cv.findContours(mask, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+        _, cnt, _ = cv.findContours(mask, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
 
-        cnt = map(lambda cnt: (len(cnt), cnt), contours)
-        cnt = filter(lambda (l, _): l > 500, cnt)
-        cnt = sorted(cnt, lambda cnt: cnt[0])
-        cnt = map(lambda cnt: cnt[1], cnt)
         cnt = map(cv.convexHull, cnt)
+        cnt = map(lambda cnt: (cv.contourArea(cnt), cnt), cnt)
+        cnt = filter(lambda (l, _): l > 100000, cnt)
+        cnt = sorted(cnt, key=lambda cnt: cnt[0], reverse=True)
+        cnt = map(lambda cnt: cnt[1], cnt)
         bounding_rect = map(cv.boundingRect, cnt)
         keypoints = [
             { 'pt': [x, y], 'size': [w, h]}

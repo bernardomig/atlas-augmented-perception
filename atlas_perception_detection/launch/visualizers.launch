@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="atlas_perception_detection" type="object2d_visualizer_node.py" name="object2d_visualizer_node">
+        <remap from="image" to="/frontal_camera/image_color" />
+        <remap from="detected_objects" to="/detected_objects_2d" />
+        <remap from="image_with_objects" to="/image_with_objects" />
+    </node>
+
+    <node pkg="atlas_perception_detection" type="object3d_visualizer_node.py" name="object3d_visualizer_node">
+        <remap from="detected_objects_3d" to="/detected_objects_3d" />
+    </node>
+</launch>

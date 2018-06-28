@@ -21,9 +21,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='transformation.proto',
   package='atlas.augmented',
   syntax='proto3',
-  serialized_pb=_b('\n\x14transformation.proto\x12\x0f\x61tlas.augmented\x1a\x0cvector.proto\x1a\x10quaternion.proto\"k\n\x0eTransformation\x12\'\n\x06origin\x18\x01 \x01(\x0b\x32\x17.atlas.augmented.Vector\x12\x30\n\x0borientation\x18\x02 \x01(\x0b\x32\x1b.atlas.augmented.Quaternionb\x06proto3')
+  serialized_pb=_b('\n\x14transformation.proto\x12\x0f\x61tlas.augmented\x1a\x0cvector.proto\x1a\x10quaternion.proto\"m\n\x0eTransformation\x12,\n\x0btranslation\x18\x01 \x01(\x0b\x32\x17.atlas.augmented.Vector\x12-\n\x08rotation\x18\x02 \x01(\x0b\x32\x1b.atlas.augmented.Quaternionb\x06proto3')
   ,
   dependencies=[vector__pb2.DESCRIPTOR,quaternion__pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -36,19 +37,19 @@ _TRANSFORMATION = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='origin', full_name='atlas.augmented.Transformation.origin', index=0,
+      name='translation', full_name='atlas.augmented.Transformation.translation', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
-      name='orientation', full_name='atlas.augmented.Transformation.orientation', index=1,
+      name='rotation', full_name='atlas.augmented.Transformation.rotation', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
@@ -62,13 +63,12 @@ _TRANSFORMATION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=73,
-  serialized_end=180,
+  serialized_end=182,
 )
 
-_TRANSFORMATION.fields_by_name['origin'].message_type = vector__pb2._VECTOR
-_TRANSFORMATION.fields_by_name['orientation'].message_type = quaternion__pb2._QUATERNION
+_TRANSFORMATION.fields_by_name['translation'].message_type = vector__pb2._VECTOR
+_TRANSFORMATION.fields_by_name['rotation'].message_type = quaternion__pb2._QUATERNION
 DESCRIPTOR.message_types_by_name['Transformation'] = _TRANSFORMATION
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Transformation = _reflection.GeneratedProtocolMessageType('Transformation', (_message.Message,), dict(
   DESCRIPTOR = _TRANSFORMATION,

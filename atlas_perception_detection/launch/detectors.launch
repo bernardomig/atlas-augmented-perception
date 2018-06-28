@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+     <node pkg="atlas_perception_detection" type="detector_node.py" name="detector_node_2d">
+        <remap from="image" to="/frontal_camera/image_color" />
+        <remap from="detected_objects" to="/detected_objects_2d" />
+    </node>
+
+    <node pkg="atlas_perception_detection" type="transformer_node.py" name="transformer_node">
+        <remap from="detected_objects_2d" to="/detected_objects_2d" />
+        <remap from="detected_objects_3d" to="/detected_objects_3d" />
+        <remap from="camera_info" to="/frontal_camera/camera_info" />
+    </node>
+</launch>

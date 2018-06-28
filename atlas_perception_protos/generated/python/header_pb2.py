@@ -23,6 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   serialized_pb=_b('\n\x0cheader.proto\x12\x0f\x61tlas.augmented\x1a\x1fgoogle/protobuf/timestamp.proto\"E\n\x06Header\x12\x10\n\x08\x66rame_id\x18\x01 \x01(\t\x12)\n\x05stamp\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestampb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -40,14 +41,14 @@ _HEADER = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='stamp', full_name='atlas.augmented.Header.stamp', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
@@ -66,7 +67,6 @@ _HEADER = _descriptor.Descriptor(
 
 _HEADER.fields_by_name['stamp'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['Header'] = _HEADER
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Header = _reflection.GeneratedProtocolMessageType('Header', (_message.Message,), dict(
   DESCRIPTOR = _HEADER,

@@ -24,6 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   serialized_pb=_b('\n\x11\x62oundingbox.proto\x12\x0f\x61tlas.augmented\x1a\x14transformation.proto\x1a\nsize.proto\"f\n\x0b\x42oundingBox\x12\x32\n\ttransform\x18\x01 \x01(\x0b\x32\x1f.atlas.augmented.Transformation\x12#\n\x04size\x18\x02 \x01(\x0b\x32\x15.atlas.augmented.Sizeb\x06proto3')
   ,
   dependencies=[transformation__pb2.DESCRIPTOR,size__pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -41,14 +42,14 @@ _BOUNDINGBOX = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='size', full_name='atlas.augmented.BoundingBox.size', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
@@ -68,7 +69,6 @@ _BOUNDINGBOX = _descriptor.Descriptor(
 _BOUNDINGBOX.fields_by_name['transform'].message_type = transformation__pb2._TRANSFORMATION
 _BOUNDINGBOX.fields_by_name['size'].message_type = size__pb2._SIZE
 DESCRIPTOR.message_types_by_name['BoundingBox'] = _BOUNDINGBOX
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 BoundingBox = _reflection.GeneratedProtocolMessageType('BoundingBox', (_message.Message,), dict(
   DESCRIPTOR = _BOUNDINGBOX,

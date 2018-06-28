@@ -23,7 +23,7 @@ def _to_detected_object_msg(id, detected_object):
 class DetectorNode:
     """The DetectorNode listens to messages incomming in the image topic, and
     outputs the predictions to detected_object topic.
-    The message, when received, is converted to a numpy array and then passed 
+    The message, when received, is converted to a numpy array and then passed
     to the detector class.
     """
 
@@ -33,7 +33,7 @@ class DetectorNode:
             data_class=Image,
             callback=self.callback,
             queue_size=10)
-        
+
         self._detected_objects_pub = rospy.Publisher(
             name=detected_object_topic,
             data_class=DetectedObjects2,
@@ -47,12 +47,12 @@ class DetectorNode:
         nd_array = self._cv_bridge.imgmsg_to_cv2(image)
         header = image.header
         detected_object_arr = self._detector.predict(nd_array)
-        
+
         detected_objects_msg = DetectedObjects2(
             header=header,
             objects=list(map(lambda a: _to_detected_object_msg(a[0],a[1]), enumerate(detected_object_arr)))
         )
-        
+
         print(detected_objects_msg)
 
         self._detected_objects_pub.publish(detected_objects_msg)
@@ -64,13 +64,13 @@ class DetectorNode:
 #
 if __name__ == '__main__':
 
+    import sys
+
+    from detector_test import TestDetector
     from detector_ball import BallDetector
 
-    detector = BallDetector()
+    rospy.init_node("detector_node")
 
-    rospy.init_node("detector_node_debug")
-
-    node = DetectorNode(detector, '/camera/image_raw', 'detected_objects_2d')
+    node = DetectorNode(BallDetector(), 'image', 'detected_objects')
 
     rospy.spin()
-    

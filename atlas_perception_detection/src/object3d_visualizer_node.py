@@ -16,14 +16,14 @@ class Object3DVisualizerNode:
 
         self._obj_sub = rospy.Subscriber(
             objects_topic, DetectedObjects3, callback=self._callback, queue_size=10)
-        
+
         self._marker_pub = rospy.Publisher(
-            'visualization_markers', MarkerArray, queue_size=10
+            'visualization_marker_array', MarkerArray, queue_size=10
         )
 
     def _callback(self, objects):
         header = objects.header
-        header.frame_id = 'base_link'
+
         markers = [
             Marker(
                 header=header,
@@ -46,6 +46,6 @@ class Object3DVisualizerNode:
 if __name__ == '__main__':
     rospy.init_node('object3d_visualizer_node')
 
-    ov = Object3DVisualizerNode('/detected_objects_3d')
+    ov = Object3DVisualizerNode('detected_objects_3d')
 
     rospy.spin()

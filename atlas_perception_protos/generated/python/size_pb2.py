@@ -19,8 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='size.proto',
   package='atlas.augmented',
   syntax='proto3',
-  serialized_pb=_b('\n\nsize.proto\x12\x0f\x61tlas.augmented\"4\n\x04Size\x12\r\n\x05width\x18\x01 \x01(\x02\x12\x0e\n\x06heigth\x18\x02 \x01(\x02\x12\r\n\x05\x64\x65pth\x18\x03 \x01(\x02\x62\x06proto3')
+  serialized_pb=_b('\n\nsize.proto\x12\x0f\x61tlas.augmented\"4\n\x04Size\x12\r\n\x05width\x18\x01 \x01(\x02\x12\x0e\n\x06height\x18\x02 \x01(\x02\x12\r\n\x05\x64\x65pth\x18\x03 \x01(\x02\x62\x06proto3')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -38,21 +39,21 @@ _SIZE = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
-      name='heigth', full_name='atlas.augmented.Size.heigth', index=1,
+      name='height', full_name='atlas.augmented.Size.height', index=1,
       number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='depth', full_name='atlas.augmented.Size.depth', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
@@ -70,7 +71,6 @@ _SIZE = _descriptor.Descriptor(
 )
 
 DESCRIPTOR.message_types_by_name['Size'] = _SIZE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Size = _reflection.GeneratedProtocolMessageType('Size', (_message.Message,), dict(
   DESCRIPTOR = _SIZE,

@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <launch>
 
-    <!-- load all the drivers -->
-
     <!-- load the camera driver -->
     <include file="$(find atlas_perception_bringup)/launch/camera.launch">
-        <arg name="camera_name" value="frontal_camera"/>
+        <arg name="camera" value="frontal_camera" />
+        <arg name="frame_id" value="frontal_camera" />
     </include>
 
     <!-- load the frontal lasers drivers -->
