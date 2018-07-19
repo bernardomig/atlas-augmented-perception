@@ -1,5 +1,5 @@
 
-.PHONY: all get-deps gen-csharp gen-python
+.PHONY: all gen-csharp gen-python gen-js
 
 all:
 
@@ -16,4 +16,11 @@ gen-python:
 	protoc \
 		-I=../protos \
 		--python_out=python \
+		../protos/*.proto
+
+gen-js:
+	mkdir -p js
+	protoc \
+		-I=../protos \
+		--js_out=js \
 		../protos/*.proto
