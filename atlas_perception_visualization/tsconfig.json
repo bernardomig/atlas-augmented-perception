@@ -2,8 +2,6 @@
     "compilerOptions": {
         "allowJs": true,
         "sourceMap": true,
-        "strictNullChecks": true,
-        "strict": true,
     },
     "include": [
         "src/**/*"

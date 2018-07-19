@@ -1,5 +1,4 @@
-import Drawing3d from "./drawing3d";
+import { onLoad } from "./aruco";
 
-let canvas = document.getElementById('canvas') as HTMLCanvasElement;
+onLoad()
 
-const drawing = new Drawing3d(canvas);
