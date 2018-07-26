@@ -6,6 +6,7 @@
     <arg name="fiducial_len" />
     <arg name="fiducial_id" />
     <arg name="object_name" />
+    <arg name="invert_tf" default="false" />
 
     <node pkg="image_publisher" type="image_publisher" name="$(arg camera_name)" args="$(arg image_url)">
         <param name="camera_name" value="$(arg camera_name)" />
@@ -28,6 +29,7 @@
         <remap from="fiducial_transforms" to="$(arg camera_name)_detector/fiducial_transforms" />
         <param name="frame_id" value="$(arg object_name)" />
         <param name="fiducial_id" value="$(arg fiducial_id)" />
+        <param name="invert_tf" value="$(arg invert_tf)" />
     </node>
 
 </launch>

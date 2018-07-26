@@ -6,7 +6,10 @@ import rospy
 
 from fiducial_msgs.msg import FiducialTransformArray
 
-from tf import TransformBroadcaster , transformations as t
+from geometry_msgs.msg import Vector3, Quaternion
+
+from tf import TransformBroadcaster
+from tf import transformations as t
 
 from geometry_msgs.msg import TransformStamped
 
@@ -39,12 +42,18 @@ class FiducialTFPublisher(object):
             obj = obj[0]
 
             if self._invert:
-                transform = t.concatenate_matrices(t.translation_matrix(obj.transform.translation), t.quaternion_matrix(obj.transform.rotation))
+                trans = obj.transform.translation
+                rot = obj.transform.rotation
+                trans = [trans.x, trans.y, trans.z]
+                rot = [rot.x, rot.y, rot.z, rot.w]
+                m_trans = t.translation_matrix(trans)
+                m_rot = t.quaternion_matrix(rot)
+                transform = t.concatenate_matrices(m_trans, m_rot)
                 inverse_transform = t.inverse_matrix(transform)
-
-            obj.transform.translation = t.translation_from_matrix(inverse_transform)
-            obj.transform.rotation = t.quaternion_from_matrix(inverse_transform)
-
+                trans = t.translation_from_matrix(inverse_transform)
+                rot = t.quaternion_from_matrix(inverse_transform)
+                obj.transform.translation = Vector3(x=trans[0], y=trans[1], z=trans[2])
+                obj.transform.rotation = Quaternion(x=rot[0], y=rot[1], z=rot[2], w=rot[3])
 
 
             self._tf_brd.sendTransformMessage(
@@ -66,6 +75,7 @@ if __name__ == '__main__':
         fiducial_topic='fiducial_transforms',
         fiducial_id=fiducial_id,
         frame_id=frame_id,
+        invert=invert_tf
     )
 
     rospy.spin()
