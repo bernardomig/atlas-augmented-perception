@@ -95,7 +95,7 @@ if __name__ == '__main__':
 
     @app.route('/debug')
     def debug():
-        return MessageToJson(ds.get_all_objects())
+        return MessageToJson(ds.get_all_objects(), including_default_value_fields=True)
 
     signal.signal(signal.SIGINT, lambda: sys.exit(0))
 

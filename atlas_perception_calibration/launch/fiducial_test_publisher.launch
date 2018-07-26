@@ -1,0 +1,33 @@
+<launch>
+
+    <arg name="camera_name" />
+    <arg name="camera_info_url" />
+    <arg name="image_url" />
+    <arg name="fiducial_len" />
+    <arg name="fiducial_id" />
+    <arg name="object_name" />
+
+    <node pkg="image_publisher" type="image_publisher" name="$(arg camera_name)" args="$(arg image_url)">
+        <param name="camera_name" value="$(arg camera_name)" />
+        <param name="camera_info_url" value="$(arg camera_info_url)" />
+        <param name="frame_id" value="$(arg camera_name)" />
+    </node>
+
+    <node pkg="image_proc" type="image_proc" name="$(arg camera_name)_image_proc" ns="$(arg camera_name)" />
+
+    <node pkg="aruco_detect" type="aruco_detect" name="$(arg camera_name)_detector">
+        <remap from="camera" to="$(arg camera_name)/image_raw" />
+        <remap from="camera_info" to="$(arg camera_name)/camera_info" />
+        <remap from="fiducial_transforms" to="$(arg camera_name)_detector/fiducial_transforms" />
+        <remap from="fiducial_vertices" to="$(arg camera_name)_detector/fiducial_vertices" />
+        <param name="dictionary" value="16" />
+        <param name="fiducial_len" value="$(arg fiducial_len)" />
+    </node>
+
+    <node pkg="atlas_perception_calibration" type="fiducial_tf_publisher.py" name="$(arg camera_name)_fiducial_tf_publisher">
+        <remap from="fiducial_transforms" to="$(arg camera_name)_detector/fiducial_transforms" />
+        <param name="frame_id" value="$(arg object_name)" />
+        <param name="fiducial_id" value="$(arg fiducial_id)" />
+    </node>
+
+</launch>
