@@ -1,0 +1,35 @@
+<launch>
+
+    <include file="$(find atlas_perception_calibration)/launch/fiducial_test_publisher.launch">
+        <arg name="camera_name" value="outside_camera" />
+        <arg name="camera_info_url" value="file:///home/bml/test/0.yaml" />
+        <arg name="image_url" value="/home/bml/test/image_atlas_camera.png" />
+        <arg name="fiducial_len" value="0.155" />
+        <arg name="fiducial_id" value="617" />
+        <arg name="object_name" value="outside_fiducial" />
+        <arg name="invert_tf" value="true" />
+    </include>
+
+    <include file="$(find atlas_perception_calibration)/launch/fiducial_test_publisher.launch">
+        <arg name="camera_name" value="inside_camera_inside_fiducial" />
+        <arg name="camera_info_url" value="file:///home/bml/test/webcam.yaml" />
+        <arg name="image_url" value="/home/bml/test/image_interior.png" />
+        <arg name="fiducial_len" value="0.081" />
+        <arg name="fiducial_id" value="416" />
+        <arg name="object_name" value="inside_fiducial" />
+    </include>
+
+    <include file="$(find atlas_perception_calibration)/launch/fiducial_test_publisher.launch">
+        <arg name="camera_name" value="inside_camera_outside_fiducial" />
+        <arg name="camera_info_url" value="file:///home/bml/test/webcam.yaml" />
+        <arg name="image_url" value="/home/bml/test/image_interior.png" />
+        <arg name="fiducial_len" value="0.155" />
+        <arg name="fiducial_id" value="617" />
+        <arg name="object_name" value="outside_fiducial" />
+    </include>
+
+    <node pkg="tf" type="static_transform_publisher" name="inside_camera_inside_fiducial_broadcaster" args="0 0 0 0 0 0 1 inside_camera inside_camera_inside_fiducial 100" />
+
+    <node pkg="tf" type="static_transform_publisher" name="inside_camera_outside_fiducial_broadcaster" args="0 0 0 0 0 0 1 inside_camera inside_camera_outside_fiducial 100" />
+
+</launch>
