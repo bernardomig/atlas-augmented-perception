@@ -71,6 +71,6 @@ if __name__ == '__main__':
 
     rospy.init_node("detector_node")
 
-    node = DetectorNode(BallDetector(), 'image', 'detected_objects')
+    node = DetectorNode(TestDetector(), 'image', 'detected_objects')
 
     rospy.spin()

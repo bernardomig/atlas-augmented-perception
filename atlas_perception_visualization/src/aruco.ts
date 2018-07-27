@@ -69,11 +69,63 @@ export function onLoad() {
     requestAnimationFrame(tick);
 }
 
+export function changeModelProperties(message) {
+
+    let object_message = message.detectedObjects[0]
+    /*console.log(message);
+
+
+    let transformationMat = new Matrix4();
+    let quaternion = new Quaternion();
+
+    /*let position = new Vector3();
+    position.x = -1;
+    position.y = 1;
+    position.z = -1;
+
+    let scale = new Vector3();
+    scale.x = 1;
+    scale.y = 1;
+    scale.z = 1;
+
+    let rotation = new Euler();
+    rotation.x = 0;
+    rotation.y = 0;
+    rotation.z = 0;
+    quaternion.setFromEuler(rotation)
+    transformationMat.compose(position,quaternion,scale)
+*/
+    movingModel.scale.x = object_message.boundingBox.size.width;
+    movingModel.scale.y = object_message.boundingBox.size.height;
+    movingModel.scale.z = object_message.boundingBox.size.depth;
+
+    movingModel.position.x = object_message.boundingBox.transform.translation.x;
+    movingModel.position.y = object_message.boundingBox.transform.translation.y;
+    movingModel.position.z = object_message.boundingBox.transform.translation.z;
+
+    movingModel.rotation.x = object_message.boundingBox.transform.rotation.x;
+    movingModel.rotation.y = object_message.boundingBox.transform.rotation.y;
+    movingModel.rotation.z = object_message.boundingBox.transform.rotation.z;
+    movingModel.rotation.w = object_message.boundingBox.transform.rotation.w;
+
+    // movingModel.rotation.x = 0;
+    // movingModel.rotation.y = 0;
+    // movingModel.rotation.z = 0;
+
+    // movingModel.position.x = 0;
+    // movingModel.position.y = 0;
+    // movingModel.position.z = -1;
+
+    console.log("Object set");
+    // console.log(movingModel.position)*/
+
+}
+
 function createScenes() {
     model = createModel();
     movingModel = createMovingObject();
     scene.add(model);
-    //scene.add(movingModel);
+    scene.add(movingModel);
 }
 
 function createModel() {
@@ -83,7 +135,7 @@ function createModel() {
         mesh = new Mesh(geometry, material);
     object.position.x = 0;
     object.position.y = 0;
-    object.position.z = 0.5;
+    object.position.z = modelSize / 2;
 
     object.add(mesh);
 
@@ -97,13 +149,18 @@ function createMovingObject() {
     var mesh = new Mesh(geometry, material);
 
     object.add(mesh);
-    object.position.x = 1;
-    object.position.y = 0;
-    object.position.z = 0.5;
+    object.position.x = 0;
+    object.position.y = 1;
+    object.position.z = -2;
+    // object.position.z = modelSize;
 
     object.rotation.x = 0;
     object.rotation.y = 0;
     object.rotation.z = 0;
+
+    object.scale.x = modelSize;
+    object.scale.y = modelSize;
+    object.scale.z = modelSize;
 
     return object;
 }
@@ -140,6 +197,12 @@ function estimatePose(markers) {
         pose = posit.pose(corners);
 
         updateCameraPose(model, pose.bestRotation, pose.bestTranslation);
+        model.visible = true;
+        movingModel.visible = true;
+    }
+    else {
+        model.visible = false;
+        movingModel.visible = false;
     }
 }
 
@@ -149,9 +212,16 @@ function updateCameraPose(object, markerRotation, translation) {
     let position = new Vector3();
     let quaternion = new Quaternion();
 
-    scale.x = modelSize;
-    scale.y = modelSize;
-    scale.z = modelSize;
+    // scale.x = modelSize;
+    // scale.y = modelSize;
+    // scale.z = modelSize;
+    scale.x = 1;
+    scale.y = 1;
+    scale.z = 1;
+
+    model.scale.x = modelSize;
+    model.scale.y = modelSize;
+    model.scale.z = modelSize;
 
     let poseMat = new Matrix4();
 

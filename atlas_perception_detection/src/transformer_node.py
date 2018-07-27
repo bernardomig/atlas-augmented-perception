@@ -18,10 +18,10 @@ class TransformerNode:
     """
 
     def __init__(self, objects2_topic, objects3_topic):
-        camera_info = rospy.wait_for_message('camera_info', CameraInfo)
+        # camera_info = rospy.wait_for_message('camera_info', CameraInfo)
 
-        self._camera_model = PinholeCameraModel()
-        self._camera_model.fromCameraInfo(camera_info)
+        # self._camera_model = PinholeCameraModel()
+        # self._camera_model.fromCameraInfo(camera_info)
 
         self._objects_sub = rospy.Subscriber(
             objects2_topic, DetectedObjects2, self.objects_callback, queue_size=10)
@@ -46,11 +46,15 @@ class TransformerNode:
         w = object.bbox.size.x
         h = object.bbox.size.y
 
-        z = w / self._camera_model.fx() / 0.2
+        # z = w / self._camera_model.fx() / 0.2
 
-        (x0, y0, _) = self._camera_model.projectPixelTo3dRay( (x, y) )
-        (x1, y1, _) = self._camera_model.projectPixelTo3dRay( (x + w, x + h) )
+        # (x0, y0, _) = self._camera_model.projectPixelTo3dRay( (x, y) )
+        # (x1, y1, _) = self._camera_model.projectPixelTo3dRay( (x + w, x + h) )
 
+
+        z = 1
+        x0, y0 = x - w/2, y - h/2
+        x1, y1 = x + w/2, y + h/2
 
         return DetectedObject3(
             id=object.id,

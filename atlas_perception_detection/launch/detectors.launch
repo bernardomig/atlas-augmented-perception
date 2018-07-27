@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-     <node pkg="atlas_perception_detection" type="detector_node.py" name="detector_node_2d">
+    <node pkg="atlas_perception_detection" type="detector_node.py" name="detector_node_2d">
         <remap from="image" to="/frontal_camera/image_color" />
         <remap from="detected_objects" to="/detected_objects_2d" />
     </node>

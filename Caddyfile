@@ -1,0 +1,8 @@
+localhost:8080
+
+ext .html
+
+root atlas_perception_visualization/dist
+
+# API load balancer
+proxy /msgs http://localhost:5000

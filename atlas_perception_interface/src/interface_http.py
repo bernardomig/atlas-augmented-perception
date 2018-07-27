@@ -23,7 +23,7 @@ from messages.size_pb2 import Size
 import rospy
 from atlas_perception_msgs.msg import DetectedObjects3
 
-from flask import Flask
+from flask import Flask, jsonify
 
 class DetectionService:
 
@@ -89,13 +89,13 @@ if __name__ == '__main__':
 
     app = Flask('atlas_perception_interface')
 
-    @app.route('/')
+    @app.route('/msgs')
     def index():
         return ds.get_all_objects().SerializeToString()
 
-    @app.route('/debug')
+    @app.route('/msgs/debug')
     def debug():
-        return MessageToJson(ds.get_all_objects())
+        return jsonify(MessageToJson(ds.get_all_objects()))
 
     signal.signal(signal.SIGINT, lambda: sys.exit(0))
 
