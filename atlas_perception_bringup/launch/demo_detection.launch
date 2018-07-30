@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+
+    <include file="$(find aruco_detect)/launch/aruco_detect.launch">
+        <arg name="camera" value="frontal_camera" />
+        <arg name="image" value="image_color" />
+        <arg name="fiducial_len" value="0.155" />
+        <arg name="dictionary" value="16" />
+    </include>
+
+    <node pkg="atlas_perception_calibration" type="fiducial_detector_node.py" name="fiducial_detector_node">
+        <remap from="detected_objects_3d" to="detected_objects_3d_camera_ref" />
+    </node>
+
+    <node pkg="atlas_perception_detection" type="objects_change_referencial.py" name="objects_change_referencial">
+        <remap from="input_objects" to="detected_objects_3d_camera_ref" />
+        <remap from="output_objects" to="detected_objects_3d" />
+        <param name="target_referencial" value="tablier_marker" />
+    </node>
+
+    <node pkg="atlas_perception_detection" type="object3d_visualizer_node.py" name="fiducial_visualizer_node">
+    </node>
+
+    <node pkg="atlas_perception_interface" type="interface_http.py" name="interface_http" />
+
+</launch>
