@@ -72,29 +72,7 @@ export function onLoad() {
 export function changeModelProperties(message) {
 
     let object_message = message.detectedObjects[0]
-    /*console.log(message);
 
-
-    let transformationMat = new Matrix4();
-    let quaternion = new Quaternion();
-
-    /*let position = new Vector3();
-    position.x = -1;
-    position.y = 1;
-    position.z = -1;
-
-    let scale = new Vector3();
-    scale.x = 1;
-    scale.y = 1;
-    scale.z = 1;
-
-    let rotation = new Euler();
-    rotation.x = 0;
-    rotation.y = 0;
-    rotation.z = 0;
-    quaternion.setFromEuler(rotation)
-    transformationMat.compose(position,quaternion,scale)
-*/
     movingModel.scale.x = object_message.boundingBox.size.width;
     movingModel.scale.y = object_message.boundingBox.size.height;
     movingModel.scale.z = object_message.boundingBox.size.depth;
@@ -108,16 +86,11 @@ export function changeModelProperties(message) {
     movingModel.rotation.z = object_message.boundingBox.transform.rotation.z;
     movingModel.rotation.w = object_message.boundingBox.transform.rotation.w;
 
-    // movingModel.rotation.x = 0;
-    // movingModel.rotation.y = 0;
-    // movingModel.rotation.z = 0;
-
-    // movingModel.position.x = 0;
-    // movingModel.position.y = 0;
-    // movingModel.position.z = -1;
-
     console.log("Object set");
-    // console.log(movingModel.position)*/
+    console.log("Position:");
+    console.log(movingModel.position)
+    console.log("Rotation:");
+    console.log(movingModel.rotation)
 
 }
 
@@ -185,20 +158,25 @@ function estimatePose(markers) {
     var corners, corner, pose, i;
 
     if (markers.length > 0) {
-        corners = markers[0].corners;
+        for (i = 0; i < markers.length; ++i) {
+            if (markers[i].id === 416) {
+                console.log(markers[i].id)
+                corners = markers[i].corners;
 
-        for (let i = 0; i < corners.length; ++i) {
-            corner = corners[i];
+                for (let i = 0; i < corners.length; ++i) {
+                    corner = corners[i];
 
-            corner.x = corner.x - (videoCanvas.width / 2);
-            corner.y = (videoCanvas.height / 2) - corner.y;
+                    corner.x = corner.x - (videoCanvas.width / 2);
+                    corner.y = (videoCanvas.height / 2) - corner.y;
+                }
+
+                pose = posit.pose(corners);
+
+                updateCameraPose(model, pose.bestRotation, pose.bestTranslation);
+                model.visible = true;
+                movingModel.visible = true;
+            }
         }
-
-        pose = posit.pose(corners);
-
-        updateCameraPose(model, pose.bestRotation, pose.bestTranslation);
-        model.visible = true;
-        movingModel.visible = true;
     }
     else {
         model.visible = false;
